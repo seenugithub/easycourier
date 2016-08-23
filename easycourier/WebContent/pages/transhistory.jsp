@@ -83,7 +83,7 @@
                             <a href="tables.html"><i class="fa fa-user fa-fw"></i> Your Profile</a>
                         </li>
                         <li>
-                        	<a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        	<a href="<%=request.getContextPath()%>/index.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                         
                     </ul>
