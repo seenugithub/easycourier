@@ -77,7 +77,7 @@
                             <a href="trackorder.jsp"><i class="fa fa-binoculars fa-fw"></i> Track Your Courier</a>
                         </li>
                         <li>
-                            <a href="transhistory.jsp"><i class="fa fa-book fa-fw"></i> Transaction History</a>
+                            <a href="transhistory.jsp"><i class="fa fa-book fa-fw"></i> Your Orders</a>
                         </li>
                         <li>
                             <a href="tables.html"><i class="fa fa-user fa-fw"></i> Your Profile</a>
@@ -107,11 +107,11 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Tracking ID</th>
+                                        <th>Order No</th>
                                         <th>Booking Date</th>
                                         <th>Recipient Name</th>
                                         <th>Recipient Address</th>
-                                        <th>Courier Partner</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>EasyCourier - Track Order</title>
+    <title>EasyCourier - Courier Pickup Requests</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -52,7 +52,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">EasyCourier - Customer Portal</a>
+                <a class="navbar-brand" href="index.html">EasyCourier - Admin Portal</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -71,16 +71,16 @@
                     <ul class="nav" id="side-menu">
                        
                         <li>
-                            <a href="booking.jsp"><i class="fa fa-calendar fa-fw"></i> Courier Booking</a>
+                            <a href="courierrequests.jsp"><i class="fa fa-calendar fa-fw"></i> Courier Pickup Requests</a>
                         </li>
                         <li>
-                            <a href="trackorder.jsp"><i class="fa fa-binoculars fa-fw"></i> Track Your Courier</a>
+                            <a href="addagent.jsp"><i class="fa fa-user-plus fa-fw"></i> Register Courier Agent</a>
                         </li>
                         <li>
-                            <a href="transhistory.jsp"><i class="fa fa-book fa-fw"></i> Your Orders</a>
+                            <a href="viewagent.jsp"><i class="fa fa-book fa-fw"></i> View Courier Agents</a>
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-user fa-fw"></i> Your Profile</a>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> Your Profile</a>
                         </li>
                         <li>
                         	<a href="<%=request.getContextPath()%>/index.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -100,22 +100,40 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Track Your Courier Status
+                            View Courier Agents
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form">
-                                    	<div class="form-group">
-                                            <label>Enter Order No</label>
-                                            <input class="form-control" type="text">
-                                        </div>
-                                        <button type="submit" class="btn btn-success">Track Now</button>
-                                        
-                                    </form>
-                                  </div>
-                             </div>
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th>Agent ID</th>
+                                        <th>Agent Name</th>
+                                        <th>Agent Gender</th>
+                                        <th>Agent Phone No</th>
+                                        <th>Agent Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd">
+                                        <td><a data-toggle="modal" data-target="#popupmodel" href="#">2343</a></td>
+                                        <td>Mahesh</td>
+                                        <td>Male</td>
+                                        <td>1234567890</td>
+                                        <td>H.No 27, Sapthagiri Nilayam, Chanda nagar</td>
+                                    </tr>
+                                    <tr class="even">
+                                        <td><a data-toggle="modal" data-target="#popupmodel" href="#">2344</a></td>
+                                        <td>Suresh</td>
+                                        <td>Male</td>
+                                        <td>1234567890</td>
+                                        <td>H.No 27, Sapthagiri Nilayam, Chanda nagar</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                            
+                        </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
@@ -123,6 +141,7 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+             
         </div>
         <!-- /#page-wrapper -->
 

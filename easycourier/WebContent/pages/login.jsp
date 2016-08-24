@@ -45,10 +45,10 @@
                         <form role="form">
                             <fieldset>
                             	<div class="form-group">
-                                    <select class="form-control">
-	                                    <option>Customer</option>
-	                                    <option>Admin</option>
-	                                    <option>Delivery Boy</option>
+                                    <select class="form-control" id="userTypeDropdown">
+	                                    <option value="customer">Customer</option>
+	                                    <option value="admin">Admin</option>
+	                                    <option value="agent">Courier Agent</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -63,7 +63,7 @@
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="booking.jsp" class="btn btn-lg btn-success btn-block">Login</a>
+                                <a href="#" id="loginBtn" class="btn btn-lg btn-success btn-block">Login</a>
                                 <br/>
                                 <a href="customer_registration.jsp">Click here to register</a> 
                                 <br/>
@@ -88,6 +88,24 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+    
+    <script>
+    $(document).ready(function() {
+        $('#loginBtn').click(function(){
+        	var userType=$("#userTypeDropdown").val();
+        	if(userType=="customer")
+        		$(this).attr("href","booking.jsp");
+        	else if(userType=="admin")
+        		$(this).attr("href","courierrequests.jsp");
+        	else if(userType=="agent")
+        		$(this).attr("href","agentcourierrequests.jsp");
+        	else
+        		alert("Please select user type");
+        	
+        	 
+        });
+    });
+    </script>
 
 </body>
 

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>EasyCourier - Booking</title>
+    <title>EasyCourier - Courier Pickup Requests</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -17,11 +17,18 @@
     <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
+    <!-- DataTables CSS -->
+    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -45,7 +52,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">EasyCourier - Customer Portal</a>
+                <a class="navbar-brand" href="index.html">EasyCourier - Admin Portal</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -64,13 +71,13 @@
                     <ul class="nav" id="side-menu">
                        
                         <li>
-                            <a href="booking.jsp"><i class="fa fa-calendar fa-fw"></i> Courier Booking</a>
+                            <a href="courierrequests.jsp"><i class="fa fa-calendar fa-fw"></i> Courier Pickup Requests</a>
                         </li>
                         <li>
-                            <a href="trackorder.jsp"><i class="fa fa-binoculars fa-fw"></i> Track Your Courier</a>
+                            <a href="addagent.jsp"><i class="fa fa-user-plus fa-fw"></i> Register Courier Agent</a>
                         </li>
                         <li>
-                            <a href="transhistory.jsp"><i class="fa fa-book fa-fw"></i> Your Orders</a>
+                            <a href="viewagent.jsp"><i class="fa fa-book fa-fw"></i> View Courier Agents</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-user fa-fw"></i> Your Profile</a>
@@ -91,55 +98,44 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
+                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Book Your Courier
+                            Add New Courier Agent
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <form role="form">
                                     	<div class="form-group">
-                                            <label>Booking Date</label>
+                                            <label>Agent First Name</label>
                                             <input class="form-control" type="text">
                                         </div>
-                                    	<div class="form-group">
-                                            <label>Sender Address</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
-                                    	<div class="form-group">
-                                            <label>Recipient Name</label>
+                                        <div class="form-group">
+                                            <label>Agent Last Name</label>
                                             <input class="form-control" type="text">
                                         </div>
-                                    	<div class="form-group">
-                                            <label>Recipient Address</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
                                         <div class="form-group">
-                                            <label>Recipient Phone No</label>
-                                            <input class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Document/Parcel weight(kg)</label>
-                                            <input class="form-control">
-                                        </div>
-                                         <div class="form-group">
-		                                    <label>Courier Partners</label>
-		                                    <select class="form-control">
-		                                        <option>Indian Postal service</option>
-		                                        <option>DHL Express India Pvt Ltd</option>
-		                                        <option>Blue dart Express limited</option>
-		                                        <option>First Flight courier limited</option>
-		                                        <option>DTDC</option>
+                                            <label>Agent Gender</label>
+                                            <select class="form-control">
+		                                        <option>Male</option>
+		                                        <option>Female</option>
 		                                    </select>
-		                                </div>
-                                        <div class="form-group">
-                                            <label>Amount</label>
-                                            <p style="padding-left:20px" class="form-control-static"><span>Courier Charge</span><span style="color:red"><i class="fa fa-rupee fa-fw"></i> 0.00</span></p>
-                                            <p style="padding-left:20px" class="form-control-static"><span>Service Charge</span><span style="color:red"><i class="fa fa-rupee fa-fw"></i> 0.00</span></p>
-                                            <p style="padding-left:20px" class="form-control-static"><span>Total Amount&nbsp;&nbsp;&nbsp;</span><span style="color:red;font-weight:bold"><i class="fa fa-rupee fa-fw"></i> 0.00</span></p>
                                         </div>
-                                        <button type="submit" class="btn btn-success">Submit</button>
+                                        <div class="form-group">
+                                            <label>Agent Phone No</label>
+                                            <input class="form-control" type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Agent Email Id</label>
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    	<div class="form-group">
+                                            <label>Agent Address</label>
+                                            <textarea class="form-control" rows="3"></textarea>
+                                        </div>
+                                    	
+                                    	
+                                        <button type="submit" class="btn btn-success">Save</button>
                                         <button type="reset" class="btn btn-danger">Reset</button>
                                         
                                         
@@ -147,27 +143,20 @@
                                         
                                     </form>
                                 </div>
-                                 <div class="col-lg-6">
-                                 	<img src="<%=request.getContextPath()%>/img/book-calender.jpg"/>
+                                 <div class="col-lg-6 text-center">
+                                 	<img src="<%=request.getContextPath()%>/img/courier-guy.png"/>
                                  </div>
-                                <!-- /.col-lg-6 (nested) -->
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+             
         </div>
         <!-- /#page-wrapper -->
 
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
+   <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -175,6 +164,22 @@
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    
+     <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+    </script>
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
