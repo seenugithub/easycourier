@@ -12,22 +12,22 @@
     <title>EasyCourier - Track Order</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<%=request.getContextPath()%>/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -71,13 +71,13 @@
                     <ul class="nav" id="side-menu">
                        
                         <li>
-                            <a href="booking.jsp"><i class="fa fa-calendar fa-fw"></i> Courier Booking</a>
+                            <a href="/easycourier/resource/customer/courierBookingPage"><i class="fa fa-calendar fa-fw"></i> Courier Booking</a>
                         </li>
                         <li>
-                            <a href="trackorder.jsp"><i class="fa fa-binoculars fa-fw"></i> Track Your Courier</a>
+                            <a href="/easycourier/resource/customer/trackOrderPage"><i class="fa fa-binoculars fa-fw"></i> Track Your Courier</a>
                         </li>
                         <li>
-                            <a href="transhistory.jsp"><i class="fa fa-book fa-fw"></i> Your Orders</a>
+                            <a href="/easycourier/resource/customer/transHistoryPage"><i class="fa fa-book fa-fw"></i> Your Orders</a>
                         </li>
                         <li>
                             <a href="tables.html"><i class="fa fa-user fa-fw"></i> Your Profile</a>
@@ -106,10 +106,10 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" action="transHistoryPage">
                                     	<div class="form-group">
                                             <label>Enter Order No</label>
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="transId">
                                         </div>
                                         <button type="submit" class="btn btn-success">Track Now</button>
                                         
@@ -130,21 +130,21 @@
     <!-- /#wrapper -->
 
    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/metisMenu/metisMenu.min.js"></script>
 
     <!-- DataTables JavaScript -->
-    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/datatables-responsive/dataTables.responsive.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="<%=request.getContextPath()%>/dist/js/sb-admin-2.js"></script>
     
      <script>
     $(document).ready(function() {
@@ -155,7 +155,7 @@
     </script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="<%=request.getContextPath()%>/dist/js/sb-admin-2.js"></script>
 
 </body>
 

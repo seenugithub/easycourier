@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<%
+session.invalidate();
+%>
 <head>
 
     <meta charset="utf-8">
@@ -58,7 +60,7 @@
                         <a href="contact.html">Contact</a>
                     </li>
 					 <li>
-                        <a href="<%=request.getContextPath()%>/pages/login.jsp">Sign Up / Login</a>
+                        <a href="<%=request.getContextPath()%>/resource/login/loginPage">Sign Up / Login</a>
                     </li>
                    
                 </ul>

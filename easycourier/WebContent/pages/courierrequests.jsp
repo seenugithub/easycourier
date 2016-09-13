@@ -1,5 +1,12 @@
+<%@page import="java.util.*,com.easycourier.domain.Employee" %>
 <!DOCTYPE html>
 <html lang="en">
+<%
+List<Map<String,Object>> courierRequests=(List<Map<String,Object>>)request.getAttribute("courierRequests");
+List<Map<String,Object>> agents=(List<Map<String,Object>>)request.getAttribute("agents");
+Employee employee=(Employee)session.getAttribute("userObject");
+System.out.println("employee session obj : "+employee);
+%>
 
 <head>
 
@@ -12,22 +19,22 @@
     <title>EasyCourier - Courier Pickup Requests</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<%=request.getContextPath()%>/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -59,7 +66,7 @@
             <ul class="nav navbar-top-links navbar-right">
 					<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <span>Welcome <b>Seenuvasan</b></span>
+                        <i class="fa fa-user fa-fw"></i> <span>Welcome <b><%=employee.getFirstName() %></b></span>
                     </a>
                     <!-- /.dropdown-user -->
                 </li>
@@ -71,13 +78,13 @@
                     <ul class="nav" id="side-menu">
                        
                         <li>
-                            <a href="courierrequests.jsp"><i class="fa fa-calendar fa-fw"></i> Courier Pickup Requests</a>
+                            <a href="/easycourier/resource/admin/allPickupRequests"><i class="fa fa-calendar fa-fw"></i> Courier Pickup Requests</a>
                         </li>
                         <li>
-                            <a href="addagent.jsp"><i class="fa fa-user-plus fa-fw"></i> Register Courier Agent</a>
+                            <a href="/easycourier/resource/admin/addAgentPage"><i class="fa fa-user-plus fa-fw"></i> Register Courier Agent</a>
                         </li>
                         <li>
-                            <a href="viewagent.jsp"><i class="fa fa-book fa-fw"></i> View Courier Agents</a>
+                            <a href="/easycourier/resource/admin/viewAgentPage"><i class="fa fa-book fa-fw"></i> View Courier Agents</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-user fa-fw"></i> Your Profile</a>
@@ -116,22 +123,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="odd">
-                                        <td><a data-toggle="modal" data-target="#popupmodel" href="#">2343</a></td>
-                                        <td>Govardana</td>
-                                        <td>1234567890</td>
-                                        <td>H.No 27, Sapthagiri Nilayam, Chanda nagar</td>
-                                        <td>Mahesh</td>
-                                        <td>Request Pending</td>
+                                <%
+                                	 int cnt=0;
+                                	for(Map<String,Object> creq : courierRequests){ 
+                                	 String style=(cnt++/2==0)?"even":"odd";
+                                	%>
+                                    <tr class="<%=style%> gradeX">
+                                        <td><a class="rowLink" data-toggle="modal" data-target="#popupmodel" href="#"><%=creq.get("TRANSACTION_ID") %></a></td>
+                                        <td><%=creq.get("CUSTOMER_NAME") %></td>
+                                        <td><%=creq.get("PHONE_NO") %></td>
+                                        <td><%=creq.get("ADDRESS") %></td>
+                                        <td><%=creq.get("AGENT_NAME") %></td>
+                                        <td><%=creq.get("STATUS") %></td>
                                     </tr>
-                                    <tr class="even">
-                                        <td><a data-toggle="modal" data-target="#popupmodel" href="#">2344</a></td>
-                                        <td>Seenu</td>
-                                        <td>1234567890</td>
-                                        <td>H.No 27, Sapthagiri Nilayam, Chanda nagar</td>
-                                        <td>N/A</td>
-                                        <td>Agent has been assigned</td>
-                                    </tr>
+                                    <%} %>
+                                    
                                     
                                 </tbody>
                             </table>
@@ -156,52 +162,53 @@
 			        	<form role="form">
 				           <div class="form-group">
                                 <label>Request ID</label>
-                                <p class="form-control-static">2343</p>
+                                <p class="form-control-static" id="popuptransId"></p>
                             </div>
                             <div class="form-group">
                                 <label>Customer Name</label>
-                                <p class="form-control-static">Govardana</p>
+                                <p class="form-control-static" id="name"></p>
                             </div>
                             <div class="form-group">
                                 <label>Customer Phone No</label>
-                                <p class="form-control-static">1234567890</p>
+                                <p class="form-control-static" id="phoneno"></p>
                             </div>
                             <div class="form-group">
                                 <label>Pickup Address</label>
-                                <p class="form-control-static">H.No 27, Sapthagiri Nilayam, Chanda nagar</p>
+                                <p class="form-control-static" id="address"></p>
                             </div>
                             <div class="form-group">
                                 <label>Courier Partner</label>
-                                <p class="form-control-static">Blue Dart</p>
+                                <p class="form-control-static" id="courierpartner"></p>
                             </div>
                             <div class="form-group">
                                 <label>Amount</label>
-                                <p class="form-control-static"><span style="color:red"><i class="fa fa-rupee fa-fw"></i>78.99</span></p>
+                                <p class="form-control-static"><span style="color:red"><i class="fa fa-rupee fa-fw"></i><span id="amount"></span></span></p>
                             </div>
                             <div class="form-group">
                                 <label>Courier Agent</label>
-                                <select class="form-control">
-	                                    <option>Ramesh</option>
-	                                    <option>Suresh</option>
-	                                    <option>Mahesh</option>
+                                <select class="form-control" id="agent">
+                                		<option value=""></option>
+	                                    <%for(Map<String,Object> agent : agents){%>
+	                                    	<option value="<%=agent.get("EMPLOYEE_ID") %>"><%=agent.get("FULL_NAME") %></option>
+	                                    <%} %>
                                     </select>
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
-                                <select class="form-control">
-                                	    <option>Request Pending</option>
-                                	    <option>Agent has been assigned</option>
-	                                    <option>Agent is on the way</option>
-	                                    <option>Collected Parcel</option>
-	                                    <option>Submitted to Courier Partner</option>
-	                                    <option>Request on hold</option>
-	                                    <option>Request Completed</option>
+                                <select class="form-control" id="status">
+                                	    <option value="Request Pending">Request Pending</option>
+                                	    <option value="Agent has been assigned">Agent has been assigned</option>
+	                                    <option value="Agent has been assigned">Agent is on the way</option>
+	                                    <option value="Collected Parcel">Collected Parcel</option>
+	                                    <option value="Submitted to Courier Partner">Submitted to Courier Partner</option>
+	                                    <option value="Request on hold">Request on hold</option>
+	                                    <option value="Request Completed">Request Completed</option>
                                     </select>
                             </div>
 	                     </form>
 			        </div>
 			        <div class="modal-footer">
-			        <button type="button" class="btn btn-info" data-dismiss="modal">Save</button>
+			        <button type="button" class="btn btn-info" data-dismiss="modal" id="saveStatusBtn">Save</button>
 			          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			        </div>
 			      </div>
@@ -214,32 +221,60 @@
     <!-- /#wrapper -->
 
    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/metisMenu/metisMenu.min.js"></script>
 
     <!-- DataTables JavaScript -->
-    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/datatables-responsive/dataTables.responsive.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="<%=request.getContextPath()%>/dist/js/sb-admin-2.js"></script>
     
      <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
             responsive: true
         });
+        
+        $(".rowLink").click(function(){
+        	var transId=$(this).html();
+        	$.get("/easycourier/resource/admin/pickupDetails?transId="+transId, function(result, status){
+        		var data=eval('('+result+')');
+        		$("#popuptransId").html(data.TRANSACTION_ID);
+        		$("#name").html(data.FULL_NAME);
+        		$("#phoneno").html(data.PHONE_NO);
+        		$("#address").html(data.ADDRESS);
+        		$("#courierpartner").html(data.COURIER_PARTNER_NAME);
+        		$("#amount").html(data.AMOUNT);
+        	});
+        });
+        
+        $("#saveStatusBtn").click(function(){
+        	var transId=$("#popuptransId").html();
+        	var agentid=$("#agent").val();
+        	var status=$("#status").val();
+        	if(status!="" || agentid!=""){
+        		$.get("/easycourier/resource/admin/updateStatus?transId="+transId+"&status="+status+"&agentid="+agentid, function(data, status){
+            		//alert(data);
+            		window.location.href="/easycourier/resource/admin/allPickupRequests";
+            	});
+        	}else{
+        		alert("Status should be empty");
+        	}
+        	
+        });
     });
     </script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="<%=request.getContextPath()%>/dist/js/sb-admin-2.js"></script>
 
 </body>
 

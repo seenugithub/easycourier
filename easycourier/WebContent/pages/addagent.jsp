@@ -1,3 +1,8 @@
+<%@page import="java.util.*,com.easycourier.domain.Employee" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%
+Employee employee=(Employee)session.getAttribute("userObject");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,22 +17,22 @@
     <title>EasyCourier - Courier Pickup Requests</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<%=request.getContextPath()%>/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -59,7 +64,7 @@
             <ul class="nav navbar-top-links navbar-right">
 					<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <span>Welcome <b>Seenuvasan</b></span>
+                        <i class="fa fa-user fa-fw"></i> <span>Welcome <b><%=employee.getFirstName() %></b></span>
                     </a>
                     <!-- /.dropdown-user -->
                 </li>
@@ -71,13 +76,13 @@
                     <ul class="nav" id="side-menu">
                        
                         <li>
-                            <a href="courierrequests.jsp"><i class="fa fa-calendar fa-fw"></i> Courier Pickup Requests</a>
+                            <a href="/easycourier/resource/admin/allPickupRequests"><i class="fa fa-calendar fa-fw"></i> Courier Pickup Requests</a>
                         </li>
                         <li>
-                            <a href="addagent.jsp"><i class="fa fa-user-plus fa-fw"></i> Register Courier Agent</a>
+                            <a href="/easycourier/resource/admin/addAgentPage"><i class="fa fa-user-plus fa-fw"></i> Register Courier Agent</a>
                         </li>
                         <li>
-                            <a href="viewagent.jsp"><i class="fa fa-book fa-fw"></i> View Courier Agents</a>
+                            <a href="/easycourier/resource/admin/viewAgentPage"><i class="fa fa-book fa-fw"></i> View Courier Agents</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-user fa-fw"></i> Your Profile</a>
@@ -103,35 +108,56 @@
                             Add New Courier Agent
                         </div>
                         <div class="panel-body">
+                        	<div class="row"> 
+                        			<%
+                        			  String successMsg=(String)request.getAttribute("successMessage");
+                        			  String errorMsg=(String)request.getAttribute("errorMessage");
+                        			%>
+                        			
+                        			<%if(successMsg!=null){ %>
+	                        			<div class="alert alert-success">
+										  <strong>Success!</strong> <%=successMsg %>.
+										</div>
+									<%} %>
+									
+									<%if(errorMsg!=null){ %>
+										<div class="alert alert-danger">
+										  <strong>Failed!</strong> <%=errorMsg %>.
+										</div>
+									<%} %>
+									
+									
+									
+                        		</div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form:form role="form" method="post" modelAttribute="employee" action="registerAgent">
                                     	<div class="form-group">
                                             <label>Agent First Name</label>
-                                            <input class="form-control" type="text">
+                                            <form:input path="firstName" name="firstName" class="form-control" type="text"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Agent Last Name</label>
-                                            <input class="form-control" type="text">
+                                            <form:input path="lastName" name="lastName" class="form-control" type="text"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Agent Gender</label>
-                                            <select class="form-control">
-		                                        <option>Male</option>
-		                                        <option>Female</option>
-		                                    </select>
+                                            <form:select path="gender" class="form-control">
+		                                        <form:option value="M">Male</form:option>
+		                                        <form:option value="F">Female</form:option>
+		                                    </form:select>
                                         </div>
                                         <div class="form-group">
                                             <label>Agent Phone No</label>
-                                            <input class="form-control" type="text">
+                                            <form:input path="phoneno" name="phoneno" class="form-control" type="text"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Agent Email Id</label>
-                                            <input class="form-control" type="text">
+                                            <form:input path="email" name="email" class="form-control" type="text"/>
                                         </div>
                                     	<div class="form-group">
                                             <label>Agent Address</label>
-                                            <textarea class="form-control" rows="3"></textarea>
+                                            <form:textarea path="address" class="form-control" rows="3"></form:textarea>
                                         </div>
                                     	
                                     	
@@ -141,7 +167,7 @@
                                         
                                         
                                         
-                                    </form>
+                                    </form:form>
                                 </div>
                                  <div class="col-lg-6 text-center">
                                  	<img src="<%=request.getContextPath()%>/img/courier-guy.png"/>
@@ -157,21 +183,21 @@
     <!-- /#wrapper -->
 
    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/metisMenu/metisMenu.min.js"></script>
 
     <!-- DataTables JavaScript -->
-    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/datatables-responsive/dataTables.responsive.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="<%=request.getContextPath()%>/dist/js/sb-admin-2.js"></script>
     
      <script>
     $(document).ready(function() {
@@ -182,7 +208,7 @@
     </script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="<%=request.getContextPath()%>/dist/js/sb-admin-2.js"></script>
 
 </body>
 

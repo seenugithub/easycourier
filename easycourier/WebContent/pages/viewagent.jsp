@@ -1,3 +1,9 @@
+<%@page import="java.util.*,com.easycourier.domain.Employee" %>
+<%
+Employee employee=(Employee)session.getAttribute("userObject");
+List<Map<String,Object>> agents=(List<Map<String,Object>>)request.getAttribute("agents");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,22 +18,22 @@
     <title>EasyCourier - Courier Pickup Requests</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<%=request.getContextPath()%>/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -59,7 +65,7 @@
             <ul class="nav navbar-top-links navbar-right">
 					<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <span>Welcome <b>Seenuvasan</b></span>
+                        <i class="fa fa-user fa-fw"></i> <span>Welcome <b><%=employee.getFirstName() %></b></span>
                     </a>
                     <!-- /.dropdown-user -->
                 </li>
@@ -71,13 +77,13 @@
                     <ul class="nav" id="side-menu">
                        
                         <li>
-                            <a href="courierrequests.jsp"><i class="fa fa-calendar fa-fw"></i> Courier Pickup Requests</a>
+                            <a href="/easycourier/resource/admin/allPickupRequests"><i class="fa fa-calendar fa-fw"></i> Courier Pickup Requests</a>
                         </li>
                         <li>
-                            <a href="addagent.jsp"><i class="fa fa-user-plus fa-fw"></i> Register Courier Agent</a>
+                            <a href="/easycourier/resource/admin/addAgentPage"><i class="fa fa-user-plus fa-fw"></i> Register Courier Agent</a>
                         </li>
                         <li>
-                            <a href="viewagent.jsp"><i class="fa fa-book fa-fw"></i> View Courier Agents</a>
+                            <a href="/easycourier/resource/admin/viewAgentPage"><i class="fa fa-book fa-fw"></i> View Courier Agents</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-user fa-fw"></i> Your Profile</a>
@@ -109,26 +115,29 @@
                                     <tr>
                                         <th>Agent ID</th>
                                         <th>Agent Name</th>
-                                        <th>Agent Gender</th>
-                                        <th>Agent Phone No</th>
-                                        <th>Agent Address</th>
+                                        <th>Email</th>
+                                        <th>Gender</th>
+                                        <th>Phone No</th>
+                                        <th>Address</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="odd">
-                                        <td><a data-toggle="modal" data-target="#popupmodel" href="#">2343</a></td>
-                                        <td>Mahesh</td>
-                                        <td>Male</td>
-                                        <td>1234567890</td>
-                                        <td>H.No 27, Sapthagiri Nilayam, Chanda nagar</td>
+                                
+                                 <%
+                                	 int cnt=0;
+                                	for(Map<String,Object> agent : agents){ 
+                                	 String style=(cnt++/2==0)?"even":"odd";
+                                	%>
+                                    <tr class="<%=style%> gradeX">
+                                        <td><%=agent.get("EMPLOYEE_ID") %></td>
+                                        <td><%=agent.get("FULL_NAME") %></td>
+                                        <td><%=agent.get("EMP_EMAIL_ID") %></td>
+                                        <td><%=agent.get("EMP_GENDER") %></td>
+                                        <td><%=agent.get("EMP_PHONE_NO") %></td>
+                                        <td><%=agent.get("EMP_ADDRESS") %></td>
                                     </tr>
-                                    <tr class="even">
-                                        <td><a data-toggle="modal" data-target="#popupmodel" href="#">2344</a></td>
-                                        <td>Suresh</td>
-                                        <td>Male</td>
-                                        <td>1234567890</td>
-                                        <td>H.No 27, Sapthagiri Nilayam, Chanda nagar</td>
-                                    </tr>
+                                    <%} %>
+                                    
                                     
                                 </tbody>
                             </table>
@@ -149,21 +158,21 @@
     <!-- /#wrapper -->
 
    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/metisMenu/metisMenu.min.js"></script>
 
     <!-- DataTables JavaScript -->
-    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/vendor/datatables-responsive/dataTables.responsive.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="<%=request.getContextPath()%>/dist/js/sb-admin-2.js"></script>
     
      <script>
     $(document).ready(function() {
@@ -174,7 +183,7 @@
     </script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="<%=request.getContextPath()%>/dist/js/sb-admin-2.js"></script>
 
 </body>
 
